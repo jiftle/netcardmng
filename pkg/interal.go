@@ -29,6 +29,7 @@ func (s *NetCardInfo) read() error {
 					return err
 				}
 				s.Prefix = int32(nn)
+				s.PrefixStr = LenToSubNetMask(int(nn))
 			} else if k == "GATEWAY" {
 				s.Gateway = v
 			} else if k == "DNS1" {
@@ -50,6 +51,8 @@ func (s *NetCardInfo) read() error {
 			}
 		}
 	}
+
+	s.readDNS()
 	return nil
 }
 

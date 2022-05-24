@@ -18,8 +18,10 @@ type NetCardInfo struct {
 	UUID               string
 	Device             string
 	OnBoot             bool
+	MAC                string
 	IpAddr             string
 	Prefix             int32
+	PrefixStr          string
 	Gateway            string
 	DNS1               string
 	DNS2               string

@@ -6,6 +6,17 @@ func (s *NetCardInfo) Get() error {
 	if err != nil {
 		return err
 	}
+	if s.BootProto == "dhcp" {
+		ip, mask, mac, err := GetLocalAddr()
+		if err != nil {
+			return err
+		}
+		s.IpAddr = ip
+		s.PrefixStr = mask
+		nPrefix, _ := SubNetMaskToLen(mask)
+		s.Prefix = int32(nPrefix)
+		s.MAC = mac
+	}
 	return nil
 }
 

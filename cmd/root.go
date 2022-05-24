@@ -18,11 +18,11 @@ var rootCmd = &cobra.Command{
 	Short: "netcard info read and write",
 	Long:  `网卡信息读写`,
 	Run: func(cmd *cobra.Command, args []string) {
-		byt, err := netcard.GetInfo()
+		out, err := netcard.GetNetCardInfo()
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(string(byt))
+		fmt.Printf("%+v\n", out)
 	},
 }
 
