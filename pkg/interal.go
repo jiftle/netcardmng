@@ -8,7 +8,7 @@ import (
 
 // read file from file
 func (s *NetCardInfo) read() error {
-	byt, err := ioutil.ReadFile(s.file)
+	byt, err := ioutil.ReadFile(s.File)
 	if err != nil {
 		return err
 	}

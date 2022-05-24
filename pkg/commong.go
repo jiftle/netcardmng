@@ -27,7 +27,7 @@ type NetCardInfo struct {
 	DNS2               string
 
 	// interal
-	file string
+	File string
 }
 
 // IPADDR=192.168.116.46

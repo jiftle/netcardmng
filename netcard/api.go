@@ -17,6 +17,12 @@ type NetCardInformation struct {
 
 var info pkg.NetCardInfo
 
+func Set(file string) error {
+	//etc/sysconfig/network-scripts/tmp-ifcfg-enp0s3
+	info.File = file
+	return nil
+}
+
 func GetInfo() (string, error) {
 	err := info.Get()
 	if err != nil {

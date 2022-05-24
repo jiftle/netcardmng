@@ -1,7 +1,7 @@
 package pkg
 
 func (s *NetCardInfo) Get() error {
-	s.file = "/home/john/wsp/gowp/netcardmng/ifcfg-enp3s0"
+	s.File = "/home/john/wsp/gowp/netcardmng/ifcfg-enp3s0"
 	err := s.read()
 	if err != nil {
 		return err
