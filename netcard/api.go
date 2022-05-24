@@ -2,7 +2,8 @@ package netcard
 
 import (
 	"encoding/json"
-	"netcardmng/pkg"
+
+	"github.com/jiftle/netcardmng/pkg"
 )
 
 type NetCardInformation struct {

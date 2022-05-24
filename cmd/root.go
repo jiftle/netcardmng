@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"netcardmng/netcard"
+	"github.com/jiftle/netcardmng/netcard"
 
 	"github.com/spf13/cobra"
 )
