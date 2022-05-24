@@ -1,7 +1,11 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import "fmt"
+import "netcardmng/cmd"
 
 func main() {
-	fmt.Println("vim-go")
+	cmd.Execute()
 }
