@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -51,8 +52,10 @@ func (s *NetCardInfo) read() error {
 			}
 		}
 	}
+	if s.BootProto == "dhcp" {
+		s.readDNS()
+	}
 
-	s.readDNS()
 	return nil
 }
 
@@ -76,5 +79,43 @@ func TrimStr(s string) string {
 }
 
 func (s *NetCardInfo) write() error {
+	byt, err := ioutil.ReadFile(s.File)
+	if err != nil {
+		return err
+	}
+
+	arLine := strings.Split(string(byt), "\n")
+	arNewLine := make([]string, 0)
+
+	for _, line := range arLine {
+		nLine := line
+		arKv := strings.Split(line, "=")
+		if len(arKv) == 2 {
+			k := TrimStr(arKv[0])
+			if k == "IPADDR" {
+				vv := s.IpAddr
+				nLine = fmt.Sprintf("%s=%v", k, vv)
+			} else if k == "PREFIX" {
+				vv := int32(s.Prefix)
+				nLine = fmt.Sprintf("%s=%v", k, vv)
+			} else if k == "GATEWAY" {
+				vv := s.Gateway
+				nLine = fmt.Sprintf("%s=%v", k, vv)
+			} else if k == "DNS1" {
+				vv := s.DNS1
+				nLine = fmt.Sprintf("%s=%v", k, vv)
+			}
+		}
+		arNewLine = append(arNewLine, nLine)
+	}
+
+	content := ""
+	content = strings.Join(arNewLine, "\n")
+
+	err = ioutil.WriteFile(s.File, []byte(content), 0655)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

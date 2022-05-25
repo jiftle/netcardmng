@@ -7,12 +7,12 @@ import (
 )
 
 type NetCardInformation struct {
-	MAC       string
-	IpAddr    string
-	PrefixStr string
-	Gateway   string
-	DNS1      string
-	DNS2      string
+	MAC       string `json:"MAC"`
+	IpAddr    string `json:"IpAddr"`
+	PrefixStr string `json:"PrefixStr"`
+	Gateway   string `json:"Gateway"`
+	DNS1      string `json:"DNS1"`
+	DNS2      string `json:"DNS2"`
 }
 
 var info pkg.NetCardInfo
@@ -49,6 +49,20 @@ func GetNetCardInfo() (*NetCardInformation, error) {
 		DNS2:      info.DNS2,
 	}
 	return s, nil
+}
+
+func SetNetCardInfo(v NetCardInformation) error {
+	info.IpAddr = v.IpAddr
+	vv, err := pkg.SubNetMaskToLen(v.PrefixStr)
+	if err != nil {
+		return err
+	}
+	info.Prefix = int32(vv)
+	info.Gateway = v.Gateway
+	info.DNS1 = v.DNS1
+	info.Flush(&info)
+
+	return nil
 }
 
 func SetIp(v string) error {

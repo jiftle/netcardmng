@@ -20,5 +20,5 @@ func (s *NetCardInfo) Get() error {
 }
 
 func (s *NetCardInfo) Flush(info *NetCardInfo) error {
-	return nil
+	return s.write()
 }
